@@ -1,0 +1,259 @@
+{
+  "algorithms": [
+    {
+      "id": "bubble",
+      "name": "Bubble Sort",
+      "icon": "fa-sort-amount-up-alt",
+      "iconColor": "text-blue-500",
+      "complexity": {
+        "time": {
+          "best": "O(n)",
+          "average": "O(n²)",
+          "worst": "O(n²)"
+        },
+        "space": "O(1)"
+      },
+      "stable": true,
+      "inPlace": true,
+      "description": "Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order, moving the largest elements to the end in each pass.",
+      "longDescription": "Bubble Sort is one of the simplest sorting algorithms. It works by repeatedly stepping through the list, comparing adjacent elements, and swapping them if they are in the wrong order. This process is repeated until the list is sorted. In each pass, the largest unsorted element 'bubbles up' to its correct position at the end of the array.",
+      "pseudocode": "procedure bubbleSort(A: list)\n    n = length(A)\n    for i = 0 to n-1\n        for j = 0 to n-i-1\n            if A[j] > A[j+1]\n                swap A[j] and A[j+1]\n            end if\n        end for\n    end for\nend procedure",
+      "advantages": [
+        "Simple implementation - easy to understand and code",
+        "Works well for small datasets",
+        "Adaptive - can achieve O(n) when array is already sorted",
+        "Stable sorting algorithm - maintains the relative order of equal elements"
+      ],
+      "disadvantages": [
+        "Very inefficient for large datasets with O(n²) time complexity",
+        "Much slower than other sorting algorithms like Merge Sort or Quick Sort",
+        "Not suitable for real-world applications with large data"
+      ],
+      "useCases": [
+        "Educational purposes - to understand basic algorithm concepts",
+        "Small datasets where simplicity is more important than efficiency",
+        "When the data is nearly sorted (can achieve O(n) in this case)"
+      ]
+    },
+    {
+      "id": "selection",
+      "name": "Selection Sort",
+      "icon": "fa-hand-pointer",
+      "iconColor": "text-purple-500",
+      "complexity": {
+        "time": {
+          "best": "O(n²)",
+          "average": "O(n²)",
+          "worst": "O(n²)"
+        },
+        "space": "O(1)"
+      },
+      "stable": false,
+      "inPlace": true,
+      "description": "Selection Sort finds the minimum element from the unsorted part of the array and puts it at the beginning, building the sorted array one element at a time.",
+      "longDescription": "Selection Sort divides the array into a sorted and an unsorted region. It repeatedly finds the minimum element from the unsorted region and moves it to the end of the sorted region. The algorithm maintains two subarrays: the subarray which is already sorted and the remaining subarray which is unsorted. In every iteration, the minimum element from the unsorted subarray is picked and moved to the sorted subarray.",
+      "pseudocode": "procedure selectionSort(A: list)\n    n = length(A)\n    for i = 0 to n-1\n        min_idx = i\n        for j = i+1 to n-1\n            if A[j] < A[min_idx]\n                min_idx = j\n            end if\n        end for\n        swap A[i] and A[min_idx]\n    end for\nend procedure",
+      "advantages": [
+        "Simple implementation with minimal code",
+        "Performs the minimum possible number of swaps (n-1)",
+        "Works well when memory write is a costly operation",
+        "In-place algorithm with O(1) extra space"
+      ],
+      "disadvantages": [
+        "Always O(n²) time complexity even for sorted data",
+        "Not suitable for large datasets",
+        "Not stable - relative order of equal elements may change"
+      ],
+      "useCases": [
+        "When minimizing the number of swaps is important",
+        "When memory write is a costly operation",
+        "For small arrays where simplicity matters more than efficiency"
+      ]
+    },
+    {
+      "id": "insertion",
+      "name": "Insertion Sort",
+      "icon": "fa-indent",
+      "iconColor": "text-green-500",
+      "complexity": {
+        "time": {
+          "best": "O(n)",
+          "average": "O(n²)",
+          "worst": "O(n²)"
+        },
+        "space": "O(1)"
+      },
+      "stable": true,
+      "inPlace": true,
+      "description": "Insertion Sort builds the sorted array one element at a time, taking each element from the unsorted part and inserting it into its correct position within the sorted part.",
+      "longDescription": "Insertion Sort builds the sorted array one element at a time. It takes each element from the unsorted portion and inserts it into its correct position in the sorted portion. The algorithm iterates through the array, and for each element, it compares it with the previous elements in the sorted portion and shifts elements greater than the current one to the right until it finds the correct position.",
+      "pseudocode": "procedure insertionSort(A: list)\n    n = length(A)\n    for i = 1 to n-1\n        key = A[i]\n        j = i-1\n        while j >= 0 and A[j] > key\n            A[j+1] = A[j]\n            j = j-1\n        end while\n        A[j+1] = key\n    end for\nend procedure",
+      "advantages": [
+        "Simple implementation with minimal code",
+        "Efficient for small datasets",
+        "Adaptive - efficient for nearly sorted arrays with O(n) time",
+        "Stable algorithm - maintains relative order of equal elements",
+        "In-place algorithm with O(1) extra space",
+        "Online algorithm - can sort a list as it receives it"
+      ],
+      "disadvantages": [
+        "O(n²) time complexity in average and worst cases",
+        "Inefficient for large datasets",
+        "Requires many element shifts for insertions"
+      ],
+      "useCases": [
+        "Small datasets where simplicity matters",
+        "Nearly sorted arrays (adaptive behavior gives O(n) performance)",
+        "Online data streams where elements come one at a time",
+        "As part of more complex algorithms (like in quick sort for small subarrays)"
+      ]
+    },
+    {
+      "id": "merge",
+      "name": "Merge Sort",
+      "icon": "fa-object-group",
+      "iconColor": "text-red-500",
+      "complexity": {
+        "time": {
+          "best": "O(n log n)",
+          "average": "O(n log n)",
+          "worst": "O(n log n)"
+        },
+        "space": "O(n)"
+      },
+      "stable": true,
+      "inPlace": false,
+      "description": "Merge Sort uses the divide-and-conquer approach, splitting the array in half, recursively sorting each half, and then merging the sorted halves back together.",
+      "longDescription": "Merge Sort is a divide-and-conquer algorithm that divides the array into two halves, recursively sorts them, and then merges the sorted halves to produce a sorted output. The key operation is the merging of two sorted subarrays. During the merge, the algorithm compares elements from both subarrays and places them in the correct order in a temporary array, which is then copied back to the original array.",
+      "pseudocode": "procedure mergeSort(A: list, start, end)\n    if start < end\n        mid = (start + end) / 2\n        mergeSort(A, start, mid)\n        mergeSort(A, mid+1, end)\n        merge(A, start, mid, end)\n    end if\nend procedure\n\nprocedure merge(A: list, start, mid, end)\n    create temp arrays L and R\n    copy A[start..mid] to L\n    copy A[mid+1..end] to R\n    \n    i = 0, j = 0, k = start\n    while i < size(L) and j < size(R)\n        if L[i] <= R[j]\n            A[k] = L[i]\n            i = i + 1\n        else\n            A[k] = R[j]\n            j = j + 1\n        end if\n        k = k + 1\n    end while\n    \n    copy remaining elements of L or R\nend procedure",
+      "advantages": [
+        "Efficient with guaranteed O(n log n) time complexity in all cases",
+        "Stable algorithm - maintains relative order of equal elements",
+        "Parallelizable - different parts can be sorted in parallel",
+        "Works well for large datasets and linked lists"
+      ],
+      "disadvantages": [
+        "Requires O(n) extra space for the temporary arrays during merging",
+        "Not an in-place sorting algorithm",
+        "Slower for small arrays compared to insertion sort"
+      ],
+      "useCases": [
+        "When stable sorting is needed",
+        "When guaranteed O(n log n) performance is required",
+        "For external sorting (when data doesn't fit in memory)",
+        "When parallel processing is available"
+      ]
+    },
+    {
+      "id": "quick",
+      "name": "Quick Sort",
+      "icon": "fa-bolt",
+      "iconColor": "text-yellow-500",
+      "complexity": {
+        "time": {
+          "best": "O(n log n)",
+          "average": "O(n log n)",
+          "worst": "O(n²)"
+        },
+        "space": "O(log n)"
+      },
+      "stable": false,
+      "inPlace": true,
+      "description": "Quick Sort selects a 'pivot' element and partitions the array around it, with smaller elements to the left and larger ones to the right, then recursively sorts both partitions.",
+      "longDescription": "Quick Sort is a divide-and-conquer algorithm that selects a 'pivot' element from the array and partitions the other elements into two sub-arrays according to whether they are less than or greater than the pivot. The algorithm selects a pivot, partitions the array around it (elements smaller than the pivot go to the left, larger to the right), and then recursively sorts the sub-arrays. The pivot selection and partitioning strategy greatly affect the algorithm's performance.",
+      "pseudocode": "procedure quickSort(A: list, low, high)\n    if low < high\n        pivotIndex = partition(A, low, high)\n        quickSort(A, low, pivotIndex - 1)\n        quickSort(A, pivotIndex + 1, high)\n    end if\nend procedure\n\nprocedure partition(A: list, low, high)\n    pivot = A[high]\n    i = low - 1\n    \n    for j = low to high - 1\n        if A[j] <= pivot\n            i = i + 1\n            swap A[i] with A[j]\n        end if\n    end for\n    \n    swap A[i + 1] with A[high]\n    return i + 1\nend procedure",
+      "advantages": [
+        "Very efficient with O(n log n) average-case time complexity",
+        "In-place algorithm with low memory overhead",
+        "Cache-friendly with good locality of reference",
+        "Performs well in practice for most real-world data"
+      ],
+      "disadvantages": [
+        "O(n²) worst-case time complexity with bad pivot choices",
+        "Not stable - relative order of equal elements may change",
+        "Performance depends on the pivot selection strategy"
+      ],
+      "useCases": [
+        "When average-case performance is important",
+        "When memory usage is a concern",
+        "For general-purpose sorting in most applications",
+        "When in-place sorting is required"
+      ]
+    },
+    {
+      "id": "heap",
+      "name": "Heap Sort",
+      "icon": "fa-layer-group",
+      "iconColor": "text-amber-500",
+      "complexity": {
+        "time": {
+          "best": "O(n log n)",
+          "average": "O(n log n)",
+          "worst": "O(n log n)"
+        },
+        "space": "O(1)"
+      },
+      "stable": false,
+      "inPlace": true,
+      "description": "Heap Sort builds a max-heap from the array and repeatedly extracts the maximum element, placing it at the end of the array and reconstructing the heap.",
+      "longDescription": "Heap Sort uses a binary heap data structure to sort elements. It first builds a max heap (where parent nodes are greater than or equal to their children), and then repeatedly extracts the maximum element from the heap and rebuilds the heap. The algorithm works in two phases: first, it builds a max heap from the input array; second, it repeatedly removes the largest element from the heap (the root) and places it at the end of the array, then restores the heap property.",
+      "pseudocode": "procedure heapSort(A: list)\n    n = length(A)\n    \n    // Build max heap\n    for i = n/2-1 down to 0\n        heapify(A, n, i)\n    end for\n    \n    // Extract elements from heap\n    for i = n-1 down to 0\n        swap A[0] with A[i]\n        heapify(A, i, 0)\n    end for\nend procedure\n\nprocedure heapify(A: list, n, i)\n    largest = i\n    left = 2*i + 1\n    right = 2*i + 2\n    \n    if left < n and A[left] > A[largest]\n        largest = left\n    end if\n    \n    if right < n and A[right] > A[largest]\n        largest = right\n    end if\n    \n    if largest != i\n        swap A[i] with A[largest]\n        heapify(A, n, largest)\n    end if\nend procedure",
+      "advantages": [
+        "Guaranteed O(n log n) time complexity in all cases",
+        "In-place algorithm with O(1) extra space",
+        "No worst-case scenarios like in Quick Sort",
+        "Efficient for finding the k largest (or smallest) elements"
+      ],
+      "disadvantages": [
+        "Not stable - relative order of equal elements may change",
+        "Poor cache performance due to scattered memory access patterns",
+        "Often slower than Quick Sort in practice despite same time complexity",
+        "Relatively complex implementation compared to other algorithms"
+      ],
+      "useCases": [
+        "When worst-case guarantee of O(n log n) is needed",
+        "When memory usage is a concern (in-place sorting)",
+        "As part of applications that already use heap data structures",
+        "When stable sorting is not required"
+      ]
+    }
+  ],
+  "colorCodes": {
+    "default": "#4299e1",
+    "comparing": "#FF4949",
+    "selected": "#FFCF49",
+    "sorted": "#13CE66"
+  },
+  "speedSettings": [
+    {
+      "value": 1,
+      "label": "Slow",
+      "delay": 300
+    },
+    {
+      "value": 2,
+      "label": "Medium-Slow",
+      "delay": 150
+    },
+    {
+      "value": 3,
+      "label": "Medium",
+      "delay": 75
+    },
+    {
+      "value": 4,
+      "label": "Medium-Fast",
+      "delay": 25
+    },
+    {
+      "value": 5,
+      "label": "Fast",
+      "delay": 5
+    }
+  ],
+  "arraySizeSettings": {
+    "min": 10,
+    "max": 100,
+    "default": 50
+  }
+}

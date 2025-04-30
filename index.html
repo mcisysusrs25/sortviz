@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Sticky Navbar -->
+    <nav class="bg-white shadow-md transition-all duration-300 sticky top-0 z-50" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-sort text-blue-600 text-2xl"></i>
+                <h1 class="text-2xl font-bold text-blue-600">SortViz</h1>
+            </div>
+            
+            <!-- Algorithm Navigation Links -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-blue-600 font-bold hover:text-blue-700 transition-colors border-b-2 border-blue-600">Home</a>
+                <a href="bubble-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Bubble Sort</a>
+                <a href="selection-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Selection Sort</a>
+                <a href="insertion-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Insertion Sort</a>
+                <a href="merge-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Merge Sort</a>
+                <a href="quick-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Quick Sort</a>
+                <a href="heap-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Heap Sort</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="p-2 focus:outline-none">
+                    <i class="fas fa-bars text-gray-700 text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Right Side Icons -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#learn-section" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="Learn Algorithms">
+                    <i class="fas fa-book-open text-gray-700"></i>
+                </a>
+                <a href="https://github.com/yourusername/sorting-visualizer" target="_blank" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="View on GitHub">
+                    <i class="fab fa-github text-gray-700"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 py-2 bg-white shadow-md">
+            <div class="flex flex-col space-y-2 pb-3">
+                <a href="index.html" class="py-2 text-blue-600 font-bold border-l-4 border-blue-600 pl-2">Home</a>
+                <a href="bubble-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Bubble Sort</a>
+                <a href="selection-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Selection Sort</a>
+                <a href="insertion-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Insertion Sort</a>
+                <a href="merge-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Merge Sort</a>
+                <a href="quick-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Quick Sort</a>
+                <a href="heap-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Heap Sort</a>
+                <div class="flex space-x-4 pt-2">
+                    <a href="#learn-section" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="Learn Algorithms">
+                        <i class="fas fa-book-open text-gray-700"></i>
+                    </a>
+                    <a href="https://github.com/yourusername/sorting-visualizer" target="_blank" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="View on GitHub">
+                        <i class="fab fa-github text-gray-700"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <div class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Sorting Algorithm Visualizer</h1>
+            <p class="text-xl max-w-2xl mx-auto mb-8">
+                Watch, learn, and understand how different sorting algorithms work through intuitive visualizations
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#visualizer" class="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg shadow-md transition-all duration-300 font-semibold">
+                    Start Visualizing
+                </a>
+                <a href="#learn-section" class="bg-blue-600 text-white hover:bg-blue-700 px-6 py-3 rounded-lg shadow-md transition-all duration-300 font-semibold">
+                    Learn Algorithms
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Algorithm Selection Section -->
+        <div id="visualizer" class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <h2 class="text-xl font-semibold mb-6 text-gray-800">Choose an Algorithm</h2>
+            <div id="algorithm-buttons" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- Algorithm buttons will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Controls Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Array Size Control -->
+            <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-ruler-horizontal text-blue-500 mr-3"></i>
+                    <h2 class="text-lg font-semibold text-gray-800">Array Size</h2>
+                </div>
+                <input id="array-size" type="range" min="10" max="100" step="1" value="50" class="slider w-full mb-2">
+                <div class="flex justify-between text-sm text-gray-600">
+                    <span id="size-min">10</span>
+                    <span id="size-value">50</span>
+                    <span id="size-max">100</span>
+                </div>
+            </div>
+            
+            <!-- Speed Control -->
+            <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-tachometer-alt text-green-500 mr-3"></i>
+                    <h2 class="text-lg font-semibold text-gray-800">Animation Speed</h2>
+                </div>
+                <input id="animation-speed" type="range" min="1" max="5" step="1" value="3" class="slider w-full mb-2">
+                <div class="flex justify-between text-sm text-gray-600" id="speed-labels">
+                    <!-- Speed labels will be generated here -->
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-play-circle text-red-500 mr-3"></i>
+                    <h2 class="text-lg font-semibold text-gray-800">Actions</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="generate-array" class="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <i class="fas fa-random mr-2"></i>Generate
+                    </button>
+                    <button id="start-sorting" class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                        <i class="fas fa-play mr-2"></i>Sort
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Current Algorithm Info Card -->
+        <div id="current-algorithm-info" class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <i id="current-algorithm-icon" class="fas fa-info-circle text-blue-500 mr-3"></i>
+                    <h2 class="text-xl font-semibold text-gray-800" id="current-algorithm-title">Algorithm Name</h2>
+                </div>
+                <span id="current-algorithm-complexity" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Complexity</span>
+            </div>
+            <p id="current-algorithm-description" class="text-gray-700 mb-4">
+                Algorithm description will appear here.
+            </p>
+            <div id="color-legend" class="flex flex-wrap gap-4">
+                <!-- Color legend will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Visualization Area -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <i class="fas fa-chart-bar text-purple-500 mr-3"></i>
+                    <h2 class="text-xl font-semibold text-gray-800">Visualization</h2>
+                </div>
+                <div class="flex items-center">
+                    <span id="array-access-count" class="text-sm text-gray-600 mr-4">Array Accesses: 0</span>
+                    <span id="comparison-count" class="text-sm text-gray-600">Comparisons: 0</span>
+                </div>
+            </div>
+            
+            <div id="array-container" class="h-64 md:h-80 flex items-end justify-center border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <!-- Array bars will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Detailed Algorithm Explanation Section -->
+        <div id="learn-section" class="mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Understanding Sorting Algorithms</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6 transition-all duration-300">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Introduction to Sorting Algorithms</h3>
+                <p class="text-gray-700 mb-4">
+                    Sorting algorithms are methods used to rearrange elements in a specific order, typically in ascending or descending order. These algorithms are fundamental to computer science and are used in many applications.
+                </p>
+                <p class="text-gray-700">
+                    This visualizer helps you understand how different sorting algorithms work by showing each step of the process. Use the controls above to adjust the array size and animation speed, then choose an algorithm to see it in action.
+                </p>
+            </div>
+            
+            <!-- Algorithm Details -->
+            <div id="algorithm-details">
+                <!-- Algorithm detail sections will be generated here -->
+            </div>
+            
+            <!-- Complexity Comparison -->
+            <div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Complexity Comparison</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-700">
+                                <th class="py-3 px-4 text-left">Algorithm</th>
+                                <th class="py-3 px-4 text-left">Best Case</th>
+                                <th class="py-3 px-4 text-left">Average Case</th>
+                                <th class="py-3 px-4 text-left">Worst Case</th>
+                                <th class="py-3 px-4 text-left">Space</th>
+                                <th class="py-3 px-4 text-left">Stable</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complexity-table" class="text-gray-700">
+                            <!-- Table rows will be generated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-white shadow-md mt-12 py-6 transition-all duration-300" id="footer">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 mb-2">
+                Sorting Algorithm Visualizer | 2025
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="https://github.com/yourusername/sorting-visualizer" target="_blank" class="text-blue-500 hover:text-blue-700">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="text-blue-500 hover:text-blue-700">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="text-blue-500 hover:text-blue-700">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

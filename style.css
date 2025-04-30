@@ -1,0 +1,343 @@
+/* Base styles */
+:root {
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary-color: #10b981;
+    --secondary-dark: #059669;
+    --accent-color: #f59e0b;
+    --danger-color: #ef4444;
+    --light-bg: #f9fafb;
+    --dark-bg: #1f2937;
+    --light-card: #ffffff;
+    --dark-card: #374151;
+    --light-text: #1f2937;
+    --dark-text: #f3f4f6;
+    --light-border: #e5e7eb;
+    --dark-border: #4b5563;
+    --transition-speed: 300ms;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    transition: background-color var(--transition-speed) ease;
+}
+
+/* Dark mode custom classes */
+.dark-bg-card {
+    background-color: var(--dark-card);
+}
+
+.dark-bg-content {
+    background-color: #2d3748;
+}
+
+.dark-bg-highlight {
+    background-color: #4b5563;
+}
+
+.dark-text-heading {
+    color: #f1f5f9;
+}
+
+.dark-text-primary {
+    color: #e2e8f0;
+}
+
+.dark-text-secondary {
+    color: #cbd5e1;
+}
+
+.dark-border {
+    border-color: #4b5563;
+}
+
+.dark-btn {
+    background-color: #374151;
+}
+
+.dark-btn-hover:hover {
+    background-color: #4b5563;
+}
+
+/* Array bar styling */
+.array-bar {
+    transition: height 0.3s ease, background-color 0.3s ease;
+    margin: 0 1px;
+    background-color: var(--primary-color);
+    border-radius: 2px 2px 0 0;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+body.dark-mode #navbar,
+body.dark-mode #footer {
+    background-color: var(--dark-card);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4 {
+    color: var(--dark-text);
+}
+
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-700,
+body.dark-mode .text-gray-800 {
+    color: #cbd5e1;
+}
+
+body.dark-mode .border-gray-200 {
+    border-color: var(--dark-border);
+}
+
+body.dark-mode .bg-gray-50,
+body.dark-mode .bg-gray-100 {
+    background-color: #4b5563;
+}
+
+body.dark-mode pre {
+    background-color: #2d3748;
+    color: #e2e8f0;
+}
+
+body.dark-mode .algorithm-btn div {
+    background-color: #374151;
+}
+
+body.dark-mode .algorithm-btn div:hover {
+    background-color: #4b5563;
+}
+
+body.dark-mode .algorithm-btn.active div {
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+body.dark-mode .accordion-item {
+    background-color: var(--dark-card);
+}
+
+body.dark-mode table thead tr {
+    background-color: #374151;
+}
+
+body.dark-mode table tbody tr {
+    border-color: #4b5563;
+}
+
+/* Custom slider styling */
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slider::-moz-range-thumb:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+body.dark-mode .slider {
+    background: #4b5563;
+}
+
+/* Gradient background for header */
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-bg {
+    background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #ec4899, #10b981);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+/* Algorithm button styles */
+.algorithm-btn {
+    transition: all 0.3s ease;
+    outline: none !important;
+}
+
+.algorithm-btn:focus {
+    outline: none;
+}
+
+.algorithm-btn div {
+    transition: all 0.3s ease;
+}
+
+.algorithm-btn.active div {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Accordion styles */
+.accordion-item {
+    transition: all 0.3s ease;
+}
+
+.accordion-header {
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #f8fafc;
+}
+
+body.dark-mode .accordion-header:hover {
+    background-color: #4b5563;
+}
+
+.accordion-header i {
+    transition: transform 0.3s ease;
+}
+
+.accordion-header.active i {
+    transform: rotate(180deg);
+}
+
+/* Array bar states */
+.comparing {
+    background-color: var(--danger-color) !important; /* Red */
+}
+
+.selected {
+    background-color: var(--accent-color) !important; /* Yellow */
+}
+
+.sorted {
+    background-color: var(--secondary-color) !important; /* Green */
+}
+
+/* Button styles */
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Utility classes for disabled states */
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    h1.text-4xl {
+        font-size: 1.875rem;
+    }
+    
+    #array-container {
+        height: 200px;
+    }
+    
+    .accordion-content {
+        padding: 1rem;
+    }
+    
+    table {
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation effects */
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.pop {
+    animation: pop 0.3s ease;
+}
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

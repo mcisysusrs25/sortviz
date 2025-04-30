@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertion Sort | Sorting Algorithm Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Sticky Navbar -->
+    <nav class="bg-white shadow-md transition-all duration-300 sticky top-0 z-50" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-sort text-blue-600 text-2xl"></i>
+                <h1 class="text-2xl font-bold text-blue-600">SortViz</h1>
+            </div>
+            
+            <!-- Algorithm Navigation Links -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                <a href="bubble-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Bubble Sort</a>
+                <a href="selection-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Selection Sort</a>
+                <a href="insertion-sort.html" class="text-blue-600 font-bold hover:text-blue-700 transition-colors border-b-2 border-blue-600">Insertion Sort</a>
+                <a href="merge-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Merge Sort</a>
+                <a href="quick-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Quick Sort</a>
+                <a href="heap-sort.html" class="text-gray-700 hover:text-blue-600 transition-colors">Heap Sort</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="p-2 focus:outline-none">
+                    <i class="fas fa-bars text-gray-700 text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Right Side Icons -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="Learn Algorithms">
+                    <i class="fas fa-book-open text-gray-700"></i>
+                </a>
+                <a href="https://github.com/yourusername/sorting-visualizer" target="_blank" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="View on GitHub">
+                    <i class="fab fa-github text-gray-700"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 py-2 bg-white shadow-md">
+            <div class="flex flex-col space-y-2 pb-3">
+                <a href="index.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Home</a>
+                <a href="bubble-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Bubble Sort</a>
+                <a href="selection-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Selection Sort</a>
+                <a href="insertion-sort.html" class="py-2 text-blue-600 font-bold border-l-4 border-blue-600 pl-2">Insertion Sort</a>
+                <a href="merge-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Merge Sort</a>
+                <a href="quick-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Quick Sort</a>
+                <a href="heap-sort.html" class="py-2 text-gray-700 hover:text-blue-600 hover:border-l-4 hover:border-blue-600 hover:pl-2 transition-all">Heap Sort</a>
+                <div class="flex space-x-4 pt-2">
+                    <a href="#" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="Learn Algorithms">
+                        <i class="fas fa-book-open text-gray-700"></i>
+                    </a>
+                    <a href="https://github.com/yourusername/sorting-visualizer" target="_blank" class="p-2 rounded-full hover:bg-gray-200 transition-colors" title="View on GitHub">
+                        <i class="fab fa-github text-gray-700"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Algorithm Header -->
+    <div class="gradient-bg text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h1 class="text-4xl font-bold mb-4">Insertion Sort</h1>
+                    <p class="text-xl mb-4">
+                        A simple sorting algorithm that builds the final sorted array one item at a time by comparing each element with the already sorted part of the array.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-4">
+                        <span class="bg-blue-800 bg-opacity-50 px-3 py-1 rounded-full text-sm font-medium">Time Complexity: O(n²)</span>
+                        <span class="bg-blue-800 bg-opacity-50 px-3 py-1 rounded-full text-sm font-medium">Space Complexity: O(1)</span>
+                        <span class="bg-blue-800 bg-opacity-50 px-3 py-1 rounded-full text-sm font-medium">Stable: Yes</span>
+                    </div>
+                    <a href="#visualize" class="inline-block bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg shadow-md transition-all duration-300 font-semibold">
+                        Visualize Algorithm
+                    </a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="w-full max-w-sm bg-white bg-opacity-10 border border-white border-opacity-25 rounded-lg p-6">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <pre class="text-white mt-4 overflow-hidden"><code>function insertionSort(arr) {
+  const n = arr.length;
+  
+  for (let i = 1; i < n; i++) {
+    // Current element to insert
+    let key = arr[i];
+    let j = i - 1;
+    
+    // Move elements greater than key
+    // to one position ahead
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    
+    arr[j + 1] = key;
+  }
+  
+  return arr;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Algorithm Details Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">How Insertion Sort Works</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Algorithm Description</h3>
+                    <p class="text-gray-700 mb-4">
+                        Insertion Sort is a simple sorting algorithm that works similar to how you might sort playing cards in your hand. The array is virtually split into sorted and unsorted parts. Values from the unsorted part are picked and placed in the correct position in the sorted part.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        The algorithm iterates through an array, consuming one element each repetition, and builds a sorted array one element at a time. It's much less efficient on large lists than more advanced algorithms like quicksort, heapsort, or merge sort, but it has several advantages.
+                    </p>
+                    <h4 class="text-lg font-semibold mb-2 text-gray-800">Key Characteristics</h4>
+                    <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                        <li><span class="font-medium">Simple Implementation:</span> Easy to understand and implement</li>
+                        <li><span class="font-medium">Efficient for Small Data Sets:</span> Performs well with small arrays</li>
+                        <li><span class="font-medium">Adaptive:</span> Efficient for data sets that are already substantially sorted</li>
+                        <li><span class="font-medium">Stable Sort:</span> Maintains the relative order of equal elements</li>
+                        <li><span class="font-medium">In-Place:</span> Only requires a constant amount of extra memory space</li>
+                        <li><span class="font-medium">Online:</span> Can sort a list as it receives it</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Complexity Analysis</h3>
+                    <div class="mb-4">
+                        <h4 class="text-lg font-semibold mb-2 text-gray-800">Time Complexity</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li><span class="font-medium">Best Case:</span> O(n) - When the array is already sorted</li>
+                            <li><span class="font-medium">Average Case:</span> O(n²) - Average performance requires n²/4 comparisons and swaps</li>
+                            <li><span class="font-medium">Worst Case:</span> O(n²) - When the array is sorted in reverse order</li>
+                        </ul>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-lg font-semibold mb-2 text-gray-800">Space Complexity</h4>
+                        <p class="text-gray-700">
+                            O(1) - Only requires a constant amount of extra memory space, as it sorts the array in-place.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-800">When to Use Insertion Sort</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Small datasets where simplicity and low overhead matter</li>
+                            <li>Nearly sorted datasets where it can perform in almost linear time</li>
+                            <li>When memory usage is a concern</li>
+                            <li>As part of more complex algorithms (like hybrid sorting algorithms)</li>
+                            <li>When implementing online algorithms (sorting as data arrives)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Visualization Section -->
+        <div id="visualize" class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Insertion Sort Visualization</h2>
+            
+            <!-- Controls Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <!-- Array Size Control -->
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-ruler-horizontal text-blue-500 mr-3"></i>
+                        <h3 class="text-lg font-semibold text-gray-800">Array Size</h3>
+                    </div>
+                    <input id="array-size" type="range" min="10" max="50" step="1" value="20" class="slider w-full mb-2">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>10</span>
+                        <span id="size-value">20</span>
+                        <span>50</span>
+                    </div>
+                </div>
+                
+                <!-- Speed Control -->
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tachometer-alt text-green-500 mr-3"></i>
+                        <h3 class="text-lg font-semibold text-gray-800">Animation Speed</h3>
+                    </div>
+                    <input id="animation-speed" type="range" min="1" max="5" step="1" value="3" class="slider w-full mb-2">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Slow</span>
+                        <span id="speed-value">Medium</span>
+                        <span>Fast</span>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-play-circle text-red-500 mr-3"></i>
+                        <h3 class="text-lg font-semibold text-gray-800">Actions</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button id="generate-array" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            <i class="fas fa-random mr-2"></i>Generate
+                        </button>
+                        <button id="start-sorting" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                            <i class="fas fa-play mr-2"></i>Sort
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visualization Canvas -->
+            <div id="array-container" class="h-64 flex items-end justify-center border border-gray-200 rounded-lg p-4 bg-gray-50 mb-4">
+                <!-- Array bars will be generated here -->
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                        <span class="text-sm text-gray-600">Unsorted</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                        <span class="text-sm text-gray-600">Current Element</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                        <span class="text-sm text-gray-600">Being Compared</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+                        <span class="text-sm text-gray-600">Sorted</span>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <span id="array-access-count" class="text-sm text-gray-600 mr-4">Array Accesses: 0</span>
+                    <span id="comparison-count" class="text-sm text-gray-600">Comparisons: 0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Code Implementation Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Code Implementation</h2>
+            
+            <!-- Language Tabs -->
+            <div class="border-b border-gray-200 mb-6">
+                <ul class="flex flex-wrap -mb-px" id="language-tabs" role="tablist">
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-blue-600 rounded-t-lg text-blue-600 font-medium" id="javascript-tab" data-target="javascript" role="tab" aria-selected="true">JavaScript</button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="python-tab" data-target="python" role="tab" aria-selected="false">Python</button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="java-tab" data-target="java" role="tab" aria-selected="false">Java</button>
+                    </li>
+                    <li role="presentation">
+                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="cpp-tab" data-target="cpp" role="tab" aria-selected="false">C++</button>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Code Content -->
+            <div id="language-content">
+                <!-- JavaScript Implementation -->
+                <div id="javascript" class="tab-content">
+                    <pre class="language-javascript rounded-lg"><code class="language-javascript">function insertionSort(arr) {
+  const n = arr.length;
+  
+  for (let i = 1; i < n; i++) {
+    // Store the current element to be inserted
+    let key = arr[i];
+    
+    // Initialize j to the element right before the current one
+    let j = i - 1;
+    
+    // Move elements greater than key to one position ahead
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    
+    // Place the key in its correct position
+    arr[j + 1] = key;
+  }
+  
+  return arr;
+}
+
+// Example usage
+const array = [64, 34, 25, 12, 22, 11, 90];
+console.log("Original array:", array);
+insertionSort(array);
+console.log("Sorted array:", array);
+</code></pre>
+                </div>
+                
+                <!-- Python Implementation -->
+                <div id="python" class="tab-content hidden">
+                    <pre class="language-python rounded-lg"><code class="language-python">def insertion_sort(arr):
+    # Traverse through 1 to len(arr)
+    for i in range(1, len(arr)):
+        key = arr[i]
+        
+        # Move elements of arr[0..i-1], that are
+        # greater than key, to one position ahead
+        # of their current position
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    
+    return arr
+
+# Example usage
+array = [64, 34, 25, 12, 22, 11, 90]
+print("Original array:", array)
+insertion_sort(array)
+print("Sorted array:", array)
+</code></pre>
+                </div>
+                
+                <!-- Java Implementation -->
+                <div id="java" class="tab-content hidden">
+                    <pre class="language-java rounded-lg"><code class="language-java">import java.util.Arrays;
+
+public class InsertionSort {
+    public static void insertionSort(int[] arr) {
+        int n = arr.length;
+        
+        for (int i = 1; i < n; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            
+            // Move elements of arr[0..i-1], that are
+            // greater than key, to one position ahead
+            // of their current position
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] array = {64, 34, 25, 12, 22, 11, 90};
+        System.out.println("Original array: " + Arrays.toString(array));
+        
+        insertionSort(array);
+        
+        System.out.println("Sorted array: " + Arrays.toString(array));
+    }
+}
+</code></pre>
+                </div>
+                
+                <!-- C++ Implementation -->
+                <div id="cpp" class="tab-content hidden">
+                    <pre class="language-cpp rounded-lg"><code class="language-cpp">#include <iostream>
+#include <vector>
+
+// Function to perform insertion sort
+void insertionSort(std::vector<int>& arr) {
+    int n = arr.size();
+    
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        
+        // Move elements of arr[0..i-1], that are
+        // greater than key, to one position ahead
+        // of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// Utility function to print an array
+void printArray(const std::vector<int>& arr) {
+    for (int num : arr) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    std::vector<int> array = {64, 34, 25, 12, 22, 11, 90};
+    
+    std::cout << "Original array: ";
+    printArray(array);
+    
+    insertionSort(array);
+    
+    std::cout << "Sorted array: ";
+    printArray(array);
+    
+    return 0;
+}
+</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step-by-Step Example Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all duration-300">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Step-by-Step Example</h2>
+            
+            <p class="text-gray-700 mb-6">
+                Let's trace through the execution of the Insertion Sort algorithm on a small array to understand how it works:
+            </p>
+            
+            <div class="flex flex-col space-y-6">
+                <!-- Initial Array -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Initial Array</h3>
+                    <div class="flex space-x-4 justify-center">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">5</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">1</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">4</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">2</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                    </div>
+                </div>
+                
+                <!-- First Pass -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">First Pass (i=1)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-gray-700 mb-2">Key element is 1, compare with 5:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-yellow-100 rounded-lg text-yellow-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-red-100 rounded-lg text-red-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-700 mb-2">1 < 5, so move 5 forward and insert 1 at position 0:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Second Pass -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Second Pass (i=2)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-gray-700 mb-2">Key element is 4, compare with 5:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-yellow-100 rounded-lg text-yellow-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-red-100 rounded-lg text-red-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-700 mb-2">4 < 5, so move 5 forward:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Third Pass -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Third Pass (i=3)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-gray-700 mb-2">Key element is 2, compare with 5, 4, 1:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-yellow-100 rounded-lg text-yellow-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-yellow-100 rounded-lg text-yellow-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-yellow-100 rounded-lg text-yellow-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-red-100 rounded-lg text-red-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-700 mb-2">2 < 5, 2 < 4, 2 > 1, so move 5 and 4 forward and insert 2 after 1:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-lg text-blue-800 font-bold">8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fourth Pass -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Fourth Pass (i=4)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-gray-700 mb-2">Key element is 8, compare with 5:</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-yellow-100 rounded-lg text-yellow-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-red-100 rounded-lg text-red-800 font-bold">8</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-700 mb-2">8 > 5, so 8 stays in place (already sorted):</p>
+                            <div class="flex space-x-4 justify-center">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">2</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">4</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">5</div>
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Final Sorted Array -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Final Sorted Array</h3>
+                    <div class="flex space-x-4 justify-center">
+                        <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">1</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">2</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">4</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">5</div>
+                        <div class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-lg text-green-800 font-bold">8</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-white shadow-md mt-12 py-6 transition-all duration-300" id="footer">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 mb-2">
+                Sorting Algorithm Visualizer | 2025
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="https://github.com/yourusername/sorting-visualizer" target="_blank" class="text-blue-500 hover:text-blue-700">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="text-blue-500 hover:text-blue-700">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="text-blue-500 hover:text-blue-700">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Language Tabs
+        const languageTabs = document.querySelectorAll('#language-tabs button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        languageTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                languageTabs.forEach(t => {
+                    t.classList.remove('border-blue-600', 'text-blue-600');
+                    t.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                
+                // Add active class to clicked tab
+                tab.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300');
+                tab.classList.add('border-blue-600', 'text-blue-600');
+                tab.setAttribute('aria-selected', 'true');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Show the corresponding tab content
+                const target = tab.getAttribute('data-target');
+                document.getElementById(target).classList.remove('hidden');
+            });
+        });
+        
+        // Simple visualization script
+        const arraySizeInput = document.getElementById('array-size');
+        const speedInput = document.getElementById('animation-speed');
+        const generateButton = document.getElementById('generate-array');
+        const sortButton = document.getElementById('start-sorting');
+        const arrayContainer = document.getElementById('array-container');
+        const sizeValue = document.getElementById('size-value');
+        const speedValue = document.getElementById('speed-value');
+        const arrayAccessCount = document.getElementById('array-access-count');
+        const comparisonCount = document.getElementById('comparison-count');
+        
+        let array = [];
+        let arraySize = parseInt(arraySizeInput.value);
+        let animationSpeed = parseInt(speedInput.value);
+        let arrayAccesses = 0;
+        let comparisons = 0;
+        let sortingInProgress = false;
+        
+        // Update size display
+        arraySizeInput.addEventListener('input', () => {
+            arraySize = parseInt(arraySizeInput.value);
+            sizeValue.textContent = arraySize;
+            generateArray();
+        });
+        
+        // Update speed display
+        speedInput.addEventListener('input', () => {
+            animationSpeed = parseInt(speedInput.value);
+            const speedLabels = ['Slow', 'Medium-Slow', 'Medium', 'Medium-Fast', 'Fast'];
+            speedValue.textContent = speedLabels[animationSpeed - 1];
+        });
+        
+        // Generate a new random array
+        function generateArray() {
+            if (sortingInProgress) return;
+            
+            array = [];
+            arrayContainer.innerHTML = '';
+            resetCounters();
+            
+            for (let i = 0; i < arraySize; i++) {
+                const value = Math.floor(Math.random() * 80) + 10;
+                array.push(value);
+                
+                const bar = document.createElement('div');
+                bar.className = 'array-bar';
+                bar.style.height = `${value}%`;
+                bar.style.width = `${90 / arraySize}%`;
+                bar.style.margin = '0 1px';
+                bar.style.backgroundColor = '#4299e1';
+                bar.style.transition = 'height 0.3s ease, background-color 0.3s ease';
+                bar.style.borderRadius = '2px 2px 0 0';
+                
+                arrayContainer.appendChild(bar);
+            }
+        }
+        
+        // Reset counters
+        function resetCounters() {
+            arrayAccesses = 0;
+            comparisons = 0;
+            arrayAccessCount.textContent = `Array Accesses: ${arrayAccesses}`;
+            comparisonCount.textContent = `Comparisons: ${comparisons}`;
+        }
+        
+        // Insertion Sort algorithm
+        async function insertionSort() {
+            const bars = document.querySelectorAll('.array-bar');
+            const n = array.length;
+            
+            // Mark the first element as sorted
+            bars[0].style.backgroundColor = '#13CE66'; // Green
+            
+            for (let i = 1; i < n; i++) {
+                // Highlight current element to be inserted
+                bars[i].style.backgroundColor = '#FF4949'; // Red
+                await delay(getDelay());
+                
+                // Store the current element
+                let key = array[i];
+                arrayAccesses++;
+                arrayAccessCount.textContent = `Array Accesses: ${arrayAccesses}`;
+                
+                // Initialize j to element right before current one
+                let j = i - 1;
+                
+                // Compare key with each element on the left until a smaller element is found
+                while (j >= 0 && array[j] > key) {
+                    // Highlight element being compared
+                    bars[j].style.backgroundColor = '#FFD700'; // Yellow
+                    await delay(getDelay());
+                    
+                    // Increment comparison counter
+                    comparisons++;
+                    comparisonCount.textContent = `Comparisons: ${comparisons}`;
+                    
+                    // Move elements greater than key to one position ahead
+                    array[j + 1] = array[j];
+                    bars[j + 1].style.height = `${array[j]}%`;
+                    
+                    // Increment array access counter (1 read + 1 write)
+                    arrayAccesses += 2;
+                    arrayAccessCount.textContent = `Array Accesses: ${arrayAccesses}`;
+                    
+                    // Reset color of compared element and mark it as sorted
+                    bars[j].style.backgroundColor = '#13CE66'; // Green
+                    
+                    j = j - 1;
+                    await delay(getDelay());
+                }
+                
+                // Place the key in its correct position
+                array[j + 1] = key;
+                bars[j + 1].style.height = `${key}%`;
+                
+                // Increment array access counter (1 write)
+                arrayAccesses++;
+                arrayAccessCount.textContent = `Array Accesses: ${arrayAccesses}`;
+                
+                // Mark the current element as sorted
+                for (let k = 0; k <= i; k++) {
+                    bars[k].style.backgroundColor = '#13CE66'; // Green
+                }
+                
+                await delay(getDelay());
+            }
+        }
+        
+        // Get delay based on speed
+        function getDelay() {
+            const delays = [300, 150, 75, 25, 5];
+            return delays[animationSpeed - 1];
+        }
+        
+        // Create delay
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        // Start sorting
+        async function startSorting() {
+            if (sortingInProgress) return;
+            
+            sortingInProgress = true;
+            sortButton.disabled = true;
+            generateButton.disabled = true;
+            arraySizeInput.disabled = true;
+            
+            resetCounters();
+            await insertionSort();
+            
+            sortingInProgress = false;
+            sortButton.disabled = false;
+            generateButton.disabled = false;
+            arraySizeInput.disabled = false;
+        }
+        
+        // Event listeners
+        generateButton.addEventListener('click', generateArray);
+        sortButton.addEventListener('click', startSorting);
+        
+        // Initialize
+        generateArray();
+    </script>
+    
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
